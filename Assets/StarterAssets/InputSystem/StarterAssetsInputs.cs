@@ -13,6 +13,9 @@ namespace StarterAssets
 		public bool jump;
 		public bool sprint;
 
+		//Custom
+		public bool attack;
+
 		[Header("Movement Settings")]
 		public bool analogMovement;
 
@@ -43,6 +46,12 @@ namespace StarterAssets
 		{
 			SprintInput(value.isPressed);
 		}
+
+		//Custom
+		public void OnAttack(InputValue value)
+		{
+			SprintInput(value.isPressed);
+		}
 #endif
 
 
@@ -65,6 +74,12 @@ namespace StarterAssets
 		{
 			sprint = newSprintState;
 		}
+		
+		//Custom
+		public void AttackInput(bool newAttackState)
+		{
+			attack = newAttackState;
+		}
 
 		private void OnApplicationFocus(bool hasFocus)
 		{
@@ -76,6 +91,7 @@ namespace StarterAssets
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
 		
+		//Custom
 		private void Update() {
 			sprint = Mathf.Abs(move.x) >= 1 || Mathf.Abs(move.y) >=1;
 		}
