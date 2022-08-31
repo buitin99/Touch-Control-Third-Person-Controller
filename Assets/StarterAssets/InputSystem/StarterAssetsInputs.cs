@@ -75,6 +75,10 @@ namespace StarterAssets
 		{
 			Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
 		}
+		
+		private void Update() {
+			sprint = Mathf.Abs(move.x) >= 1 || Mathf.Abs(move.y) >=1;
+		}
 	}
 	
 }
