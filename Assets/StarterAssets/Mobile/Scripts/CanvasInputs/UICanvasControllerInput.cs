@@ -27,10 +27,16 @@ namespace StarterAssets
         {
             starterAssetsInputs.SprintInput(virtualSprintState);
         }
+
         //Custom
         public void VirtualAttackInput(bool virtualAttackState)
         {
             starterAssetsInputs.AttackInput(virtualAttackState);
+        }
+
+        public void VirtualRollingInput(bool virtualRollingState)
+        {
+            starterAssetsInputs.RollingInput(virtualRollingState);
         }
         
     }

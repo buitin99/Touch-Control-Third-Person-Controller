@@ -99,6 +99,10 @@ namespace StarterAssets
         private int _animIDMotionSpeed;
         //Custom
         private int _animIDAttack;
+        private int _animIDRolling;
+        
+        private bool isAttackFinish;
+        private bool isRollingFinish;
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
         private PlayerInput _playerInput;
@@ -160,9 +164,9 @@ namespace StarterAssets
 
             JumpAndGravity();
             GroundedCheck();
-            Move();
-            //Custom
             AttackAnimation();
+            RollingAnimation();
+            Move();
         }
 
         private void LateUpdate()
@@ -176,6 +180,7 @@ namespace StarterAssets
             _animIDGrounded = Animator.StringToHash("Grounded");
             _animIDJump = Animator.StringToHash("Jump");
             _animIDAttack = Animator.StringToHash("Attack");
+            _animIDRolling = Animator.StringToHash("Rolling");
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
         }
@@ -397,10 +402,47 @@ namespace StarterAssets
         //Custom
         private void AttackAnimation()
         {
-            if (_hasAnimator)
+            if (_hasAnimator && isAttackFinish)
             {
-                _animator.SetBool(_animIDAttack, true);
+                _animator.SetBool(_animIDAttack, false);
             }
+
+            if (Grounded)
+            {
+                if (StarterAssetsInputs.Instance.attack)
+                {
+                    _animator.SetBool(_animIDAttack, StarterAssetsInputs.Instance.attack);
+                    isAttackFinish = false;
+                }
+            }
+        }
+
+        private void AttackFinished()
+        {
+            isAttackFinish = true;
+        }
+
+        private void RollingAnimation()
+        {
+             if (_hasAnimator && isRollingFinish)
+            {
+                _animator.SetBool(_animIDRolling, false);
+            }
+
+            if (Grounded)
+            {
+                if (StarterAssetsInputs.Instance.rolling)
+                {
+                    _animator.SetBool(_animIDRolling, StarterAssetsInputs.Instance.rolling);
+                    isRollingFinish = false;
+                }
+
+            }
+        }
+
+        private void RollingFinished()
+        {
+            isRollingFinish = true;
         }
 
     }

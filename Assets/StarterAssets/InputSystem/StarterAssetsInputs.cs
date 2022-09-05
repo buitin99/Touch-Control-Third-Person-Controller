@@ -13,15 +13,47 @@ namespace StarterAssets
 		public bool jump;
 		public bool sprint;
 
-		//Custom
-		public bool attack;
-
 		[Header("Movement Settings")]
 		public bool analogMovement;
 
 		[Header("Mouse Cursor Settings")]
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
+
+		//Custom
+		public bool attack;
+		public bool rolling;
+
+		private static StarterAssetsInputs instance = null;
+
+		public static StarterAssetsInputs Instance
+		{
+			get
+			{
+				if (instance == null)
+				{
+					var instance = GameObject.FindObjectOfType<StarterAssetsInputs>();
+					if (instance == null)
+					{
+						GameObject obj = new GameObject("Unity Singleton");
+						instance = obj.AddComponent<StarterAssetsInputs>();
+					}
+				}
+			return instance;
+			}	
+		}
+
+		void Awake() {
+			if (instance == null)
+			{
+				instance = this;
+				DontDestroyOnLoad(this.gameObject);
+			}
+			else
+			{
+				Destroy(gameObject);
+			}	
+		}
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 		public void OnMove(InputValue value)
@@ -50,7 +82,12 @@ namespace StarterAssets
 		//Custom
 		public void OnAttack(InputValue value)
 		{
-			SprintInput(value.isPressed);
+			AttackInput(value.isPressed);
+		}
+
+		public void OnRolling(InputValue value)
+		{
+			RollingInput(value.isPressed);
 		}
 #endif
 
@@ -78,7 +115,12 @@ namespace StarterAssets
 		//Custom
 		public void AttackInput(bool newAttackState)
 		{
-			attack = newAttackState;
+		   attack = newAttackState;
+		}
+
+		public void RollingInput(bool newRollingState)
+		{
+		   rolling = newRollingState;
 		}
 
 		private void OnApplicationFocus(bool hasFocus)
