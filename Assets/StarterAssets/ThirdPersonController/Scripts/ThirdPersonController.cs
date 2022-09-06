@@ -99,10 +99,10 @@ namespace StarterAssets
         private int _animIDMotionSpeed;
         //Custom
         private int _animIDAttack;
-        private int _animIDRolling;
+        private int _animIDKick;
         
         private bool isAttackFinish;
-        private bool isRollingFinish;
+        private bool isKickFinish;
 
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
         private PlayerInput _playerInput;
@@ -165,7 +165,7 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             AttackAnimation();
-            RollingAnimation();
+            KickAnimation();
             Move();
         }
 
@@ -180,7 +180,7 @@ namespace StarterAssets
             _animIDGrounded = Animator.StringToHash("Grounded");
             _animIDJump = Animator.StringToHash("Jump");
             _animIDAttack = Animator.StringToHash("Attack");
-            _animIDRolling = Animator.StringToHash("Rolling");
+            _animIDKick = Animator.StringToHash("Kick");
             _animIDFreeFall = Animator.StringToHash("FreeFall");
             _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
         }
@@ -422,27 +422,27 @@ namespace StarterAssets
             isAttackFinish = true;
         }
 
-        private void RollingAnimation()
+        private void KickAnimation()
         {
-             if (_hasAnimator && isRollingFinish)
+             if (_hasAnimator && isKickFinish)
             {
-                _animator.SetBool(_animIDRolling, false);
+                _animator.SetBool(_animIDKick, false);
             }
 
             if (Grounded)
             {
-                if (StarterAssetsInputs.Instance.rolling)
+                if (StarterAssetsInputs.Instance.kick)
                 {
-                    _animator.SetBool(_animIDRolling, StarterAssetsInputs.Instance.rolling);
-                    isRollingFinish = false;
+                    _animator.SetBool(_animIDKick, StarterAssetsInputs.Instance.kick);
+                    isKickFinish = false;
                 }
 
             }
         }
 
-        private void RollingFinished()
+        private void KickFinished()
         {
-            isRollingFinish = true;
+            isKickFinish = true;
         }
 
     }

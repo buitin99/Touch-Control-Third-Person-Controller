@@ -22,7 +22,7 @@ namespace StarterAssets
 
 		//Custom
 		public bool attack;
-		public bool rolling;
+		public bool kick;
 
 		private static StarterAssetsInputs instance = null;
 
@@ -85,9 +85,9 @@ namespace StarterAssets
 			AttackInput(value.isPressed);
 		}
 
-		public void OnRolling(InputValue value)
+		public void OnKick(InputValue value)
 		{
-			RollingInput(value.isPressed);
+			KickInput(value.isPressed);
 		}
 #endif
 
@@ -118,9 +118,9 @@ namespace StarterAssets
 		   attack = newAttackState;
 		}
 
-		public void RollingInput(bool newRollingState)
+		public void KickInput(bool newKickState)
 		{
-		   rolling = newRollingState;
+		   kick = newKickState;
 		}
 
 		private void OnApplicationFocus(bool hasFocus)

@@ -34,9 +34,9 @@ namespace StarterAssets
             starterAssetsInputs.AttackInput(virtualAttackState);
         }
 
-        public void VirtualRollingInput(bool virtualRollingState)
+        public void VirtualKickInput(bool virtualKickState)
         {
-            starterAssetsInputs.RollingInput(virtualRollingState);
+            starterAssetsInputs.KickInput(virtualKickState);
         }
         
     }
